@@ -200,3 +200,49 @@ export const testimonials = [
     },
   },
 ];
+
+export const privacyPolicy = {
+  title: "Privacy Policy",
+  effectiveDate: "2023-01-01",
+  lastUpdated: "2024-11-18",
+  introduction: `
+    Welcome to [Your Company Name]. Your privacy is important to us. 
+    This Privacy Policy explains how we collect, use, and protect your information.
+  `,
+  sections: [
+    {
+      title: "Information We Collect",
+      content: `
+        We collect information to provide better services to all our users.
+      `,
+      list: [
+        "Personal information (e.g., name, email address)",
+        "Usage data (e.g., pages visited, time spent on the site)",
+      ],
+    },
+    {
+      title: "How We Use Your Information",
+      content: `
+        The information we collect is used to:
+      `,
+      list: [
+        "Improve our services",
+        "Communicate with you",
+        "Personalize your experience",
+      ],
+    },
+    {
+      title: "Sharing Your Information",
+      content: `
+        We do not share your personal information with third parties, except:
+      `,
+      list: ["When required by law", "With your consent"],
+    },
+    {
+      title: "Security",
+      content: `
+        We implement a variety of security measures to protect your personal information.
+      `,
+    },
+  ],
+};

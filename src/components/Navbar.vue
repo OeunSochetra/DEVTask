@@ -2,7 +2,11 @@
   <div class="flex items-center p-5 border-b bg-white text-black shadow-sm">
     <div class="flex items-center w-full justify-between mt-1">
       <div class="flex items-center gap-6 ml-6">
-        <span class="font-[600] text-xl">DEVTask</span>
+        <span
+          @click="navigateToHome()"
+          class="font-[600] text-xl cursor-pointer"
+          >DEVTask</span
+        >
         <span
           class="border border-black px-2.5 py-1 rounded-full cursor-pointer"
         >
@@ -23,5 +27,10 @@
 </template>
 <script setup lang="ts">
 import IconPlus from "./icons/IconPlus.vue";
+import router from "../router";
+
+const navigateToHome = () => {
+  router.push("/");
+};
 </script>
 <style scoped></style>
