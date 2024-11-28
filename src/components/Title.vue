@@ -1,11 +1,13 @@
 <template>
-  <h1 class="text-4xl font-bold text-black">{{ props.title }}</h1>
+  <a-typography-title class="!font-bold" :heading="1">{{
+    props.title
+  }}</a-typography-title>
 </template>
 <script setup lang="ts">
 import { defineProps } from "vue";
 
 interface Props {
-  title: string;
+  title: string | undefined;
 }
 const props = defineProps<Props>();
 </script>

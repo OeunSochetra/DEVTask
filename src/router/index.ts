@@ -14,6 +14,11 @@ export const router = createRouter({
       component: () => import("../views/dev/index.vue"),
     },
     {
+      path: "/dev/job/:id",
+      name: RouterName.DETAIL,
+      component: () => import("../views/dev/detail.vue"),
+    },
+    {
       path: "/jobs",
       name: RouterName.JOBS,
       component: () => import("../views/jobs/index.vue"),

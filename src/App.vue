@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="flex flex-col min-h-screen">
     <Navbar class="sticky-navbar" />
     <div
-      class="max-w-[1180px] mx-auto flex items-center justify-center mt-[10rem]"
+      class="flex items-center justify-center min-h-screen md:mt-[10rem] mt-[4rem] md:p-0 p-4"
     >
       <RouterView />
     </div>
-    <div class="mt-36">
+    <div class="mt-16">
       <Footer></Footer>
     </div>
   </div>

@@ -4,4 +4,5 @@ export default class RouterName {
   static AREA = "area";
   static POST = "post";
   static PRIVATE_POLICY = "privacy-policy";
+  static DETAIL = "detail";
 }

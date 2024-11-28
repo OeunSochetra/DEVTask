@@ -1,6 +1,6 @@
 <!-- JobCard.vue -->
 <template>
-  <div class="border p-6 rounded-2xl w-[850px] cursor-pointer">
+  <div class="border p-6 rounded-2xl w-full cursor-pointer">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
         <img
@@ -10,13 +10,30 @@
           class="object-cover border flex items-center justify-center rounded-full"
           alt="company logo"
         />
-        <div>
-          <span class="flex items-center gap-2 text-[#7F7F80]">
+
+        <div class="flex flex-col items-center justify-center">
+          <div class="flex items-center gap-2 text-[#7F7F80]">
             <p class="text-md">{{ company }}</p>
-            <p>{{ jobType }}</p>
-          </span>
-          <p class="font-[500] text-lg">{{ title }}</p>
+            <span class="flex items-center gap-2">
+              <span class="text-3xl -translate-y-2">.</span>
+              <p>{{ jobType }}</p>
+            </span>
+          </div>
+          <div>
+            <p class="font-[500] text-lg">{{ title }}</p>
+          </div>
         </div>
+
+        <!-- <div class="flex items-center flex-col">
+          <div class="flex items-center gap-2 text-[#7F7F80]">
+            <p class="text-md">{{ company }}</p>
+            <span class="flex items-center gap-2">
+              <span class="text-3xl">.</span>
+              <p>{{ jobType }}</p>
+            </span>
+          </div>
+          <p class="font-[500] text-lg">{{ title }}</p>
+        </div> -->
       </div>
 
       <div class="flex flex-col gap-2">

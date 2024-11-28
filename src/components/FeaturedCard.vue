@@ -14,8 +14,16 @@
         {{ props.company }} <span class="text-3xl">.</span>
         {{ props.jobType }}
       </p>
-      <p class="text-xl font-[500]">{{ props.jobTitle }}</p>
-      <p>{{ props.spotlightOption }}</p>
+      <p class="text-xl text-center font-[500]">{{ props.jobTitle }}</p>
+      <div class="mt-6 gap-1 flex flex-col items-center">
+        <span v-if="props.spotlightOption" class="spotlight">
+          In the spotlight
+        </span>
+        <div class="flex space-x-1">
+          <span class="job-type"> {{ props.locations }} </span>
+          <span class="job-type"> {{ props.jobType }} </span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -32,9 +40,12 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
-const checkSpotlight = (spotlightOption: string) => {
-  return spotlightOption === "In the spotlight";
-};
 </script>
-<style scoped></style>
+<style scoped>
+.spotlight {
+  @apply text-red-500 flex items-center justify-between bg-red-50 px-2 py-1 rounded-full text-[10px] border-red-300 border;
+}
+.job-type {
+  @apply text-[#27A359] flex items-center justify-between bg-[#F7FBF9] px-2 py-1 rounded-full text-[10px] border-[#D3EADA] border;
+}
+</style>

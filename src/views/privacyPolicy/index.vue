@@ -1,28 +1,61 @@
 <template>
   <div class="w-[880px]">
-    <div class="flex flex-col gap-8">
-      <Title :title="privacyPolicy.title" />
-      <p class="text-[#4C4C4C]">{{ privacyPolicy.introduction }}</p>
-      <span
-        class="leading-8"
-        v-for="(section, index) in privacyPolicy.sections"
-        :key="index"
-      >
-        <span class="leading-8">
-          <p class="text-black font-semibold">{{ section.title }}</p>
-          <p class="text-[#4C4C4C]">{{ section.content }}</p>
-        </span>
+    <Loading v-if="isLoading"></Loading>
+    <div
+      v-for="(privacy, index) in privacyList"
+      :key="index"
+      class="flex flex-col"
+    >
+      <div
+        v-if="isLoading"
+        class="animate-pulse bg-gray-200 w-[30%] h-6 rounded-lg mt-6"
+      ></div>
+      <Title v-else :title="privacy?.title" />
 
-        <span class="leading-8 text-[#4C4C4C]" v-if="section.list">
-          <li v-for="(item, index) in section.list" :key="index">{{ item }}</li>
-        </span>
-      </span>
+      <div
+        v-if="isLoading"
+        class="animate-pulse bg-gray-200 w-full h-6 rounded-lg mt-6"
+      ></div>
+      <p v-else class="mt-6">{{ privacy.content }}</p>
+      <div
+        class="dynamic-content mt-6 text-black"
+        v-html="privacy.privacyAndPolicy"
+      ></div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { privacyPolicy } from "../../constants/constant";
 import Title from "../../components/Title.vue";
+import { usePrivacyStore } from "../../store/privacyStore";
+import { storeToRefs } from "pinia";
+import { onMounted, ref } from "vue";
+import Loading from "../../components/Loading.vue";
+
+const privacyStore = usePrivacyStore();
+const { privacyList } = storeToRefs(privacyStore);
+const { fetchPrivacy } = privacyStore;
+
+const isLoading = ref<boolean>(true);
+
+const fetchData = async () => {
+  isLoading.value = true;
+  await fetchPrivacy();
+  isLoading.value = false;
+};
+
+onMounted(() => {
+  fetchData();
+});
 </script>
 
-<style scoped></style>
+<style scoped>
+.dynamic-content ::v-deep ul {
+  list-style: disc;
+  padding: 10px;
+  margin-left: 18px;
+}
+
+.dynamic-content {
+  line-height: 2rem;
+}
+</style>

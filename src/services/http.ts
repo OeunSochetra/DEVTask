@@ -42,3 +42,73 @@ export const get = async <T>(endpoint: string): Promise<Response<T>> => {
 
   return (await response.json()) as Response<T>;
 };
+
+export const put = async <T>(
+  endpoint: string,
+  id: string,
+  data: T
+): Promise<Response<T>> => {
+  const response = await fetch(`${baseUrl}/${endpoint}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      // Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Network response was not ok: ${response.statusText}`);
+  }
+
+  return (await response.json()) as Response<T>;
+};
+
+export const del = async <T>(
+  endpoint: string,
+  id: string
+): Promise<Response<T>> => {
+  const response = await fetch(`${baseUrl}/${endpoint}/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      // Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Network response was not ok: ${response.statusText}`);
+  }
+
+  return (await response.json()) as Response<T>;
+};
+
+export const uploadFile = async <T>(
+  endpoint: string,
+  file: File,
+  additionalData?: Record<string, any>
+): Promise<Response<T>> => {
+  const formData = new FormData();
+
+  // Append the file
+  formData.append("file", file);
+
+  // Append any additional data if provided
+  if (additionalData) {
+    for (const key in additionalData) {
+      formData.append(key, additionalData[key]);
+    }
+  }
+
+  const response = await fetch(`${baseUrl}/${endpoint}`, {
+    method: "POST",
+    body: formData,
+    // No need to set 'Content-Type', fetch will handle it with FormData
+  });
+
+  if (!response.ok) {
+    throw new Error(`Network response was not ok: ${response.statusText}`);
+  }
+
+  return (await response.json()) as Response<T>;
+};

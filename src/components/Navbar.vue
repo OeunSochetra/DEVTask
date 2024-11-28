@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center p-5 border-b bg-white text-black shadow-sm">
+  <div class="flex items-center p-4 border-b bg-white text-black shadow-sm">
     <div class="flex items-center w-full justify-between mt-1">
       <div class="flex items-center gap-6 ml-6">
         <span
@@ -7,30 +7,37 @@
           class="font-[600] text-xl cursor-pointer"
           >DEVTask</span
         >
-        <span
-          class="border border-black px-2.5 py-1 rounded-full cursor-pointer"
-        >
-          Contact</span
-        >
+        <Button class="!border !hidden md:!block !rounded-lg"> Contact </Button>
         <span class="hover:text-blue-600 cursor-pointer">Find jobs</span>
       </div>
-      <div
-        class="flex items-center gap-2 px-4 py-1 bg-blue-600 rounded-full cursor-pointer text-white"
+      <Button
+        class="!bg-blue-500 hover:!bg-blue-600 !text-white !rounded-full"
+        v-if="route.name !== RouterName.POST"
+        @click="navigateToPost()"
       >
-        <span>
+        <span class="flex items-center gap-2">
           <IconPlus />
+          Post a job
         </span>
-        Post a job
-      </div>
+      </Button>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import IconPlus from "./icons/IconPlus.vue";
 import router from "../router";
+import { useRoute } from "vue-router";
+import RouterName from "../constants/router-name";
+import { Button } from "@arco-design/web-vue";
+
+const route = useRoute();
 
 const navigateToHome = () => {
   router.push("/");
+};
+
+const navigateToPost = () => {
+  router.push({ name: RouterName.POST });
 };
 </script>
 <style scoped></style>
