@@ -1,13 +1,15 @@
 <template>
-  <div v-for="(item, index) in props.programmingLanguages" :key="index">
-    <span class="border cursor-pointer px-3 py-4 rounded-lg">{{ item }}</span>
+  <div>
+    <a-button class="!px-3 !py-4 !rounded-lg hover:!bg-slate-300">
+      {{ programmingLanguages }}
+    </a-button>
   </div>
 </template>
 <script setup lang="ts">
 import { defineProps } from "vue";
 
 interface Props {
-  programmingLanguages: string[];
+  programmingLanguages: string;
 }
 
 const props = defineProps<Props>();

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { IFeatureJob, IFeatureJobPayload } from "../constants/common";
-import { get, post } from "../services/http";
+import { get, post, del } from "../services/http";
 import { ref } from "vue";
 
 export const useFeatureJobStore = defineStore("featureJob", () => {
@@ -46,11 +46,39 @@ export const useFeatureJobStore = defineStore("featureJob", () => {
     }
   };
 
+  const updateFeatureJob = async (id: string, payload: IFeatureJobPayload) => {
+    try {
+      const response = await post<IFeatureJobPayload>("feature-job", payload);
+      if (response.message === "success") {
+        console.log("success to update feature job");
+      } else {
+        console.error("failed to update feature job", response.message);
+      }
+    } catch (error) {
+      console.error("error to update feature job", error);
+    }
+  };
+
+  const deleteFeatureJob = async (id: string) => {
+    try {
+      const response = await del<string>(`feature-job`, id);
+      if (response.message === "success") {
+        console.log("success to delete feature job");
+      } else {
+        console.error("failed to delete feature job", response.message);
+      }
+    } catch (error) {
+      console.error("error to delete feature job", error);
+    }
+  };
+
   return {
     featureJobList,
     featureJobDetail,
     fetchFeatureJob,
     fetchFeatureJobDetail,
     addFeatureJob,
+    updateFeatureJob,
+    deleteFeatureJob,
   };
 });

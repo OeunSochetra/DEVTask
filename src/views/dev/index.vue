@@ -15,6 +15,7 @@
             :key="indexSkeletonFeature"
             v-if="isLoading"
           />
+
           <FeaturedCard
             v-else
             @click="navigateToDetail(item._id)"
@@ -58,6 +59,7 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import RouterName from "../../constants/router-name";
 import SkeletonBoard from "../../components/SkeletonBoard.vue";
+import IconDelete from "../../components/icons/IconDelete.vue";
 
 const featureJobStore = useFeatureJobStore();
 const { featureJobList } = storeToRefs(featureJobStore);

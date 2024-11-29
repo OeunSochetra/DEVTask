@@ -24,7 +24,7 @@ export const router = createRouter({
       component: () => import("../views/jobs/index.vue"),
     },
     {
-      path: "/area",
+      path: "/area/:id",
       name: RouterName.AREA,
       component: () => import("../views/area/index.vue"),
     },

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen">
+  <div class="flex flex-col">
     <Navbar class="sticky-navbar" />
     <div
       class="flex items-center justify-center min-h-screen md:mt-[10rem] mt-[4rem] md:p-0 p-4"

@@ -40,7 +40,7 @@
         <p
           class="text-red-500 text-center bg-[#FDF7F8] border-red-500 border px-2 py-1 rounded-full text-[10px]"
         >
-          {{ datePosted }}
+          {{ formatDate(datePosted) }}
         </p>
         <span class="flex items-center gap-2">
           <p
@@ -62,12 +62,13 @@
 
 <script setup lang="ts">
 import { defineProps } from "vue";
+import { formatDate } from "../utils/formatDate";
 
 interface Props {
   companyLogo?: string;
   title?: string;
   company?: string;
-  location?: string;
+  location?: string[];
   jobType?: string;
   datePosted?: string;
   internship?: boolean;
@@ -76,6 +77,4 @@ interface Props {
 const props = defineProps<Props>();
 </script>
 
-<style scoped>
-/* Optional styles for the JobCard component */
-</style>
+<style scoped></style>

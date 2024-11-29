@@ -10,6 +10,7 @@ export interface IFeatureJob {
   website: string;
   applyLink: string;
   email: string;
+  categories: IProgramLang[];
   createdAt: string;
   updatedAt: string;
 }

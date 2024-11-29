@@ -1,10 +1,15 @@
 <template>
-  <div>
+  <div class="md:w-[1184px] w-full">
     <p class="text-4xl font-[700] text-start">Find your dream jobs</p>
-    <div class="mt-10 flex items-center gap-y-10 gap-x-2 flex-wrap">
-      <CategoriesJobs :programmingLanguages="programmingLanguages" />
+    <div class="mt-10 flex items-center gap-y-2 gap-x-2 flex-wrap">
+      <CategoriesJobs
+        v-for="(item, index) in programLang"
+        :key="index"
+        @click="navigateToArea(item._id)"
+        :programmingLanguages="item.name"
+      />
     </div>
-    <div class="mt-16">
+    <!-- <div class="mt-16">
       <p class="text-4xl font-[700] text-start">All jobs</p>
       <div class="flex gap-6">
         <div class="mt-10 flex flex-col gap-4">
@@ -20,42 +25,41 @@
             :internship="item.internship"
           />
         </div>
-        <div class="sticky w-[30%] bottom-[50%] right-10">
-          <div class="border p-10 rounded-2xl">
-            <div class="flex flex-col gap-6">
-              <p>
-                Work with the most talented and accomplished developers on a
-                freelance, contract, part-time, or full-time basis.
-              </p>
-              <div
-                @click="navigateToPost"
-                class="flex items-center gap-2 w-[160px] px-4 py-1 bg-blue-600 rounded-full cursor-pointer text-white"
-              >
-                <span>
-                  <IconPlus />
-                </span>
-                Post a job
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script setup lang="ts">
 import { allJobs } from "../../constants/constant";
-import { programmingLanguages } from "../../constants/constant";
 import CategoriesJobs from "../../components/CategoriesJobs.vue";
 import CardJobs from "../../components/CardJobs.vue";
-import IconPlus from "../../components/icons/IconPlus.vue";
+import { useProgramLangStore } from "../../store/programLnag";
+import { useFeatureJobStore } from "../../store/featureJobStore";
+import { storeToRefs } from "pinia";
+import { onMounted, computed } from "vue";
+import { IFeatureJob } from "../../constants/common";
 import RouterName from "../../constants/router-name";
 import { useRouter } from "vue-router";
 
+const programLangStore = useProgramLangStore();
+const { programLang } = storeToRefs(programLangStore);
+const { fetchProgramLang } = programLangStore;
+
 const router = useRouter();
 
-const navigateToPost = () => {
-  router.push({ name: RouterName.POST });
+const navigateToArea = (id: string) => {
+  router.push({
+    name: RouterName.AREA,
+    params: { id },
+  });
 };
+
+const fetchData = async () => {
+  await Promise.all([fetchProgramLang()]);
+};
+
+onMounted(() => {
+  fetchData();
+});
 </script>
 <style scoped></style>

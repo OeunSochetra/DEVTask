@@ -9,19 +9,17 @@
       </span>
     </p>
     <div>
-      <div class="border p-16 rounded-lg">
+      <div class="border p-10 md:p-16 rounded-lg w-full">
         <form @submit.prevent="handleSubmit" class="flex flex-col gap-6">
           <div class="flex flex-col gap-2">
             <div class="flex gap-1">
-              <label for="jobTitle">Logo Company</label>
+              <label for="jobTitle">Company logo</label>
               <span class="text-red-500">*</span>
             </div>
             <Input
-              type="file"
-              id="logo"
-              accept="image/*"
+              id="CompanyLogo"
+              placeholder="e.g. logo"
               v-model="form.logo"
-              @click="uploader()"
             />
           </div>
           <div class="flex flex-col gap-2">
@@ -31,7 +29,7 @@
             </div>
             <Input
               id="companyName"
-              placeholder="e.g. Senior iOS Developer"
+              placeholder="e.g. Company HH"
               v-model="form.company"
             />
           </div>
@@ -75,6 +73,7 @@
               <span class="text-red-500">*</span>
             </div>
             <QuillEditor
+              id="description"
               class="toolbar rounded-b-md"
               placeholder="e.g. Write a description..."
               ref="quillRef"
@@ -92,7 +91,7 @@
             <Input
               id="companyWebsite"
               placeholder="e.g. https//"
-              v-model="form.description"
+              v-model="form.website"
             />
           </div>
 
@@ -104,7 +103,7 @@
             <Input
               id="email"
               placeholder="e.g. email@domain.com"
-              v-model="form.description"
+              v-model="form.email"
             />
           </div>
           <div class="flex flex-col gap-2">
@@ -112,42 +111,74 @@
               <label for="jobType">spotlightOption</label>
               <span class="text-red-500">*</span>
             </div>
-            <select
-              placeholder="Select a spotlight option"
+            <a-select
+              class="!bg-white !border !border-gray-300 !rounded-lg"
               v-model="form.spotlightOption"
-              class="select"
               id="spotlightOption"
+              placeholder="e.g. spotlight option"
             >
-              <option
+              <a-option
                 v-for="(item, index) in spotlightList"
                 :key="index"
                 :value="item._id"
               >
-                {{ item.viewMultiplier }}
-              </option>
-            </select>
+                {{ item.viewMultiplier }}</a-option
+              >
+            </a-select>
           </div>
           <div class="flex flex-col gap-2">
             <div class="flex gap-1">
               <label for="jobType">Categories</label>
               <span class="text-red-500">*</span>
             </div>
-            <select
+            <a-select
+              multiple
+              class="!bg-white !border !border-gray-300 !rounded-lg"
               v-model="form.categories"
-              class="select"
-              id="spotlightOption"
+              id="programLang"
+              placeholder="e.g. program language option"
             >
-              <option
+              <a-option
                 v-for="(item, index) in programLang"
                 :key="index"
                 :value="item._id"
               >
                 {{ item.name }}
-              </option>
-            </select>
+              </a-option>
+            </a-select>
           </div>
+
           <button type="submit">Submit</button>
         </form>
+        <!-- <a-form :model="form" @submit="handleSubmit">
+          <a-form-item
+            label="CompanyLogo"
+            field="CompanyLogo"
+            :rules="[
+              { required: true, message: 'Email is required' },
+              {
+                type: 'email',
+                message: 'Please enter a valid email address',
+              },
+            ]"
+          >
+            <div class="flex flex-col items-center">
+              <div class="flex gap-1">
+                <label for="jobTitle">Company logo</label>
+                <span class="text-red-500">*</span>
+              </div>
+              <Input
+                id="CompanyLogo"
+                placeholder="e.g. logo"
+                v-model="form.logo"
+              />
+            </div>
+          </a-form-item>
+
+          <a-form-item>
+            <a-button html-type="submit">Submit</a-button>
+          </a-form-item>
+        </a-form> -->
       </div>
     </div>
   </div>
@@ -222,10 +253,6 @@ onMounted(() => {
 });
 </script>
 <style scoped>
-.select {
-  @apply !outline-none border border-gray-300 rounded-md p-2;
-}
-
 .toolbar .ql-toolbar .ql-snow {
   @apply !border-none;
 }

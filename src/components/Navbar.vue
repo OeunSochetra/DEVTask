@@ -8,7 +8,11 @@
           >DEVTask</span
         >
         <Button class="!border !hidden md:!block !rounded-lg"> Contact </Button>
-        <span class="hover:text-blue-600 cursor-pointer">Find jobs</span>
+        <span
+          @click="navigateToFindJobs"
+          class="hover:text-blue-600 cursor-pointer"
+          >Find jobs</span
+        >
       </div>
       <Button
         class="!bg-blue-500 hover:!bg-blue-600 !text-white !rounded-full"
@@ -38,6 +42,10 @@ const navigateToHome = () => {
 
 const navigateToPost = () => {
   router.push({ name: RouterName.POST });
+};
+
+const navigateToFindJobs = () => {
+  router.push({ name: RouterName.JOBS });
 };
 </script>
 <style scoped></style>
