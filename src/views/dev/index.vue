@@ -41,6 +41,7 @@
           <CardJobs
             v-else
             v-for="(item, index) in featureJobList"
+            @click="navigateToDetail(item._id)"
             :key="index"
             :companyLogo="item.logo"
             :company="item.company"

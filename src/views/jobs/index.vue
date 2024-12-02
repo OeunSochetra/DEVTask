@@ -14,6 +14,7 @@
       <div class="flex gap-6">
         <div class="mt-10 flex flex-col gap-4">
           <CardJobs
+            @click="navigateToJobDetail(item._id)"
             v-for="(item, index) in featureJobList"
             :key="index"
             :companyLogo="item.logo"
@@ -51,6 +52,13 @@ const router = useRouter();
 const navigateToArea = (id: string) => {
   router.push({
     name: RouterName.AREA,
+    params: { id },
+  });
+};
+
+const navigateToJobDetail = (id: string) => {
+  router.push({
+    name: RouterName.DETAIL,
     params: { id },
   });
 };

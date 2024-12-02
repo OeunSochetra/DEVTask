@@ -9,6 +9,7 @@
         :key="index"
       >
         <CardJobs
+          @click="navigateToDetail(item._id)"
           :companyLogo="item.logo"
           :title="item.jobTitle"
           :company="item.company"
@@ -29,12 +30,15 @@ import { computed, onMounted, ref } from "vue";
 import CardJobs from "../../components/CardJobs.vue";
 import Title from "../../components/Title.vue";
 import Loading from "../../components/Loading.vue";
+import { useRouter } from "vue-router";
+import RouterName from "../../constants/router-name";
 
 const featureJobStore = useFeatureJobStore();
 const { featureJobList } = storeToRefs(featureJobStore);
 const { fetchFeatureJob } = featureJobStore;
 
 const route = useRoute();
+const router = useRouter();
 
 const isLoading = ref<boolean>(false);
 
@@ -55,6 +59,13 @@ const matchingTitle = computed(() => {
   )?.name;
   return title;
 });
+
+const navigateToDetail = (id: string) => {
+  router.push({
+    name: RouterName.DETAIL,
+    params: { id },
+  });
+};
 
 const fetchData = async () => {
   isLoading.value = true;
