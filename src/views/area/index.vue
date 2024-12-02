@@ -1,11 +1,10 @@
 <template>
   <div class="md:w-[1184px] w-full mb-[10rem]">
+    <Loading></Loading>
     <div v-if="findIdMatch">
       <Title :title="matchingFeatureJobs[0].categories[0].name" />
-      <div v-if="isLoading">{{ isLoading }}</div>
       <div
         class="flex flex-col gap-4"
-        v-else
         v-for="(item, index) in matchingFeatureJobs"
         :key="index"
       >
@@ -33,6 +32,7 @@ import { computed, onMounted, ref } from "vue";
 import { IFeatureJob } from "../../constants/common";
 import CardJobs from "../../components/CardJobs.vue";
 import Title from "../../components/Title.vue";
+import Loading from "../../components/Loading.vue";
 
 const featureJobStore = useFeatureJobStore();
 const { featureJobList } = storeToRefs(featureJobStore);

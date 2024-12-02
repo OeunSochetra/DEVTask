@@ -16,7 +16,7 @@
               height="64"
               class="border rounded-full"
             />
-            <p class="text-black font-semibold text-lg">
+            <p class="text-black font-semibold text-lg"> 
               {{ featureJobDetail?.company }}
             </p>
             <a class="text-[12px]" :href="featureJobDetail?.website"

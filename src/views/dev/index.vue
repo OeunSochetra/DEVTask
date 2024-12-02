@@ -33,13 +33,20 @@
       <div>
         <Title class="mt-10" title="Recent Jobs"></Title>
         <div class="flex flex-col gap-4 mt-6">
+          <SkeletonCard
+            v-for="(item, indexSkeletonFeature) in featureJobList"
+            :key="indexSkeletonFeature"
+            v-if="isLoading"
+          />
           <CardJobs
+            v-else
             v-for="(item, index) in featureJobList"
             :key="index"
             :companyLogo="item.logo"
             :company="item.company"
             :title="item.jobTitle"
             :jobType="item.jobType"
+            :internship="false"
           >
           </CardJobs>
         </div>
@@ -59,7 +66,7 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import RouterName from "../../constants/router-name";
 import SkeletonBoard from "../../components/SkeletonBoard.vue";
-import IconDelete from "../../components/icons/IconDelete.vue";
+import SkeletonCard from "../../components/SkeletonCard.vue";
 
 const featureJobStore = useFeatureJobStore();
 const { featureJobList } = storeToRefs(featureJobStore);
