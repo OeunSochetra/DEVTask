@@ -47,6 +47,7 @@ export const useFeatureJobStore = defineStore("featureJob", () => {
   };
 
   const updateFeatureJob = async (id: string, payload: IFeatureJobPayload) => {
+    console.log(id);
     try {
       const response = await post<IFeatureJobPayload>("feature-job", payload);
       if (response.message === "success") {

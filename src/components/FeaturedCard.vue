@@ -24,15 +24,11 @@
           <span class="job-type"> {{ props.jobType }} </span>
         </div>
       </div>
-      <!-- <span @click.stop="" class="absolute right-3 top-3">
-        <IconDelete />
-      </span> -->
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { defineProps } from "vue";
-import IconDelete from "./icons/IconDelete.vue";
 
 interface Props {
   company?: string;

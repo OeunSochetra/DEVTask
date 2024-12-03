@@ -10,12 +10,7 @@
         <p class="text-3xl font-semibold">Featured jobs</p>
 
         <div class="mt-10 flex flex-col md:grid md:grid-cols-3 gap-4">
-          <SkeletonFeature
-            v-for="(item, indexSkeletonFeature) in featureJobList"
-            :key="indexSkeletonFeature"
-            v-if="isLoading"
-          />
-
+          <SkeletonFeature v-if="isLoading" />
           <FeaturedCard
             v-else
             @click="navigateToDetail(item._id)"
@@ -33,11 +28,7 @@
       <div>
         <Title class="mt-10" title="Recent Jobs"></Title>
         <div class="flex flex-col gap-4 mt-6">
-          <SkeletonCard
-            v-for="(item, indexSkeletonFeature) in featureJobList"
-            :key="indexSkeletonFeature"
-            v-if="isLoading"
-          />
+          <SkeletonCard v-if="isLoading" />
           <CardJobs
             v-else
             v-for="(item, index) in featureJobList"

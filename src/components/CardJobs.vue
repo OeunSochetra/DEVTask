@@ -6,7 +6,7 @@
       <div class="flex items-center gap-3">
         <div>
           <img
-            :src="companyLogo"
+            :src="props.companyLogo"
             width="64"
             height="64"
             class="object-cover flex items-center justify-center rounded-full"
@@ -15,13 +15,13 @@
         </div>
         <div>
           <div class="flex items-center">
-            <p class="text-md">{{ company }}</p>
+            <p class="text-md">{{ props.company }}</p>
             <span class="flex items-center">
               <span class="text-3xl -translate-y-2">.</span>
-              <p>{{ jobType }}</p>
+              <p>{{ props.jobType }}</p>
             </span>
           </div>
-          <p class="font-[500] text-lg">{{ title }}</p>
+          <p class="font-[500] text-lg">{{ props.title }}</p>
         </div>
       </div>
       <div class="flex flex-col items-center gap-2 text-[10px]">
@@ -37,7 +37,6 @@
 
 <script setup lang="ts">
 import { defineProps } from "vue";
-import { formatDate } from "../utils/formatDate";
 
 interface Props {
   companyLogo?: string;

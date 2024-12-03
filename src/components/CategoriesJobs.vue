@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-button class="!px-3 !py-4 !rounded-lg hover:!bg-slate-300">
-      {{ programmingLanguages }}
+      {{ props.programmingLanguages }}
     </a-button>
   </div>
 </template>

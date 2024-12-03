@@ -190,7 +190,6 @@ import Input from "../../components/Input.vue";
 import { onMounted, reactive, ref } from "vue";
 import { IFeatureJobPayload } from "../../constants/common";
 import { useFeatureJobStore } from "../../store/featureJobStore";
-import { uploadFile } from "../../services/http";
 import { useSpotlightStore } from "../../store/spotlightStore";
 import { useProgramLangStore } from "../../store/programLnag";
 import { storeToRefs } from "pinia";
@@ -227,21 +226,21 @@ const handleSubmit = async () => {
   console.log(form.description);
 };
 
-const uploader = async () => {
-  const fileInput = document.querySelector<HTMLInputElement>("#fileInput");
-  const file = fileInput?.files?.[0];
+// const uploader = async () => {
+//   const fileInput = document.querySelector<HTMLInputElement>("#fileInput");
+//   const file = fileInput?.files?.[0];
 
-  if (!file) {
-    console.error("No file selected!");
-    return;
-  }
-  try {
-    const response = await uploadFile<{ id: string }>("media", file);
-    console.log("File uploaded successfully!", response);
-  } catch (error) {
-    console.error("Error uploading file:", error);
-  }
-};
+//   if (!file) {
+//     console.error("No file selected!");
+//     return;
+//   }
+//   try {
+//     const response = await uploadFile<{ id: string }>("media", file);
+//     console.log("File uploaded successfully!", response);
+//   } catch (error) {
+//     console.error("Error uploading file:", error);
+//   }
+// };
 
 const fetchData = async () => {
   await fetchSpotlightList();
