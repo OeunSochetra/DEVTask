@@ -1,7 +1,11 @@
 <template>
   <div class="md:w-[688px] w-full">
     <div class="flex flex-col gap-6">
-      <Title :title="featureJobDetail?.jobTitle" />
+      <div
+        v-if="isLoading"
+        class="animate-pulse bg-gray-300 w-36 h-6 rounded-full"
+      ></div>
+      <Title v-else :title="featureJobDetail?.jobTitle" />
       <div
         class="w-full border mt-6 md:p-10 p-2 rounded-lg md:flex md:items-center md:justify-between"
       >
@@ -16,7 +20,7 @@
               height="64"
               class="border rounded-full"
             />
-            <p class="text-black font-semibold text-lg"> 
+            <p class="text-black font-semibold text-lg">
               {{ featureJobDetail?.company }}
             </p>
             <a class="text-[12px]" :href="featureJobDetail?.website"

@@ -1,11 +1,15 @@
 <template>
   <div class="md:w-[1184px] w-full mb-[10rem]">
     <Loading></Loading>
-    <div v-if="matchingFeatureJobs">
-      <Title :title="matchingTitle" />
+    <div v-if="programLangFeatureJob">
+      <Title :title="programLangDetail?.name" />
+      <div v-if="programLangFeatureJob.length === 0">
+        <ContentNotFound title="No jobs found" />
+      </div>
       <div
+        v-else
         class="mt-6"
-        v-for="(item, index) in matchingFeatureJobs"
+        v-for="(item, index) in programLangFeatureJob"
         :key="index"
       >
         <CardJobs
@@ -24,41 +28,25 @@
 </template>
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { useFeatureJobStore } from "../../store/featureJobStore";
+import { useProgramLangStore } from "../../store/programLnag";
 import { storeToRefs } from "pinia";
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import CardJobs from "../../components/CardJobs.vue";
 import Title from "../../components/Title.vue";
+import ContentNotFound from "../../components/ContentNotFound.vue";
 import Loading from "../../components/Loading.vue";
 import { useRouter } from "vue-router";
 import RouterName from "../../constants/router-name";
 
-const featureJobStore = useFeatureJobStore();
-const { featureJobList } = storeToRefs(featureJobStore);
-const { fetchFeatureJob } = featureJobStore;
+const programLangStore = useProgramLangStore();
+const { programLangFeatureJob, programLangDetail } =
+  storeToRefs(programLangStore);
+const { fetchProgramLangFeatureJob, fetchProgramLangDetail } = programLangStore;
 
 const route = useRoute();
 const router = useRouter();
 
-const isLoading = ref<boolean>(false);
-
-const id = String(route.params.id);
-const matchingFeatureJobs = computed(() => {
-  if (!id) return [];
-  const matchingId = featureJobList.value.filter((job) =>
-    job.categories.map((cate) => cate._id).includes(id)
-  );
-
-  return matchingId;
-});
-
-const matchingTitle = computed(() => {
-  if (!id) return "";
-  const title = matchingFeatureJobs.value[0]?.categories.find((cate) =>
-    cate._id.includes(id)
-  )?.name;
-  return title;
-});
+const isLoading = ref(false);
 
 const navigateToDetail = (id: string) => {
   router.push({
@@ -69,7 +57,11 @@ const navigateToDetail = (id: string) => {
 
 const fetchData = async () => {
   isLoading.value = true;
-  await fetchFeatureJob();
+  const id = String(route.params.id);
+  await Promise.all([
+    fetchProgramLangFeatureJob(id),
+    fetchProgramLangDetail(id),
+  ]);
   isLoading.value = false;
 };
 

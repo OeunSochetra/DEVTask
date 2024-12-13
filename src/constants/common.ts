@@ -89,3 +89,17 @@ export interface IPrivacy {
   updatedAt: string;
   __v: 0;
 }
+
+export interface IMeta {
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+}
+
+export interface IUploadFile {
+  _id: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -11,6 +11,7 @@
     </div>
     <div class="mt-16">
       <p class="text-4xl font-[700] text-start">All jobs</p>
+
       <div class="flex gap-6">
         <div class="mt-10 flex flex-col gap-4">
           <CardJobs
@@ -26,6 +27,15 @@
           />
         </div>
       </div>
+    </div>
+    <div class="flex justify-center mt-10">
+      <a-pagination
+        :total="featureMeta?.total || 0"
+        :current="featureMeta?.page"
+        :page-size="featureMeta?.pageSize"
+        :simple="true"
+        @change="handlePageChange"
+      />
     </div>
   </div>
 </template>
@@ -44,10 +54,13 @@ const { programLang } = storeToRefs(programLangStore);
 const { fetchProgramLang } = programLangStore;
 
 const featureJobStore = useFeatureJobStore();
-const { featureJobList } = storeToRefs(featureJobStore);
+const { featureJobList, featureMeta, featureQuery } =
+  storeToRefs(featureJobStore);
 const { fetchFeatureJob } = featureJobStore;
 
 const router = useRouter();
+
+// const search = ref("net");
 
 const navigateToArea = (id: string) => {
   router.push({
@@ -61,6 +74,11 @@ const navigateToJobDetail = (id: string) => {
     name: RouterName.DETAIL,
     params: { id },
   });
+};
+
+const handlePageChange = (newPage: number) => {
+  featureQuery.value.page = newPage;
+  fetchData();
 };
 
 const fetchData = async () => {

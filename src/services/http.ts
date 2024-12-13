@@ -7,6 +7,44 @@ type Response<T> = {
   message: string;
 };
 
+interface IParams {
+  page: number;
+  limit: number;
+  search: string;
+}
+
+export const get = async <T>(
+  endpoint: string,
+  params?: IParams
+): Promise<Response<T>> => {
+  // Construct query string only if params are provided
+
+  const queryString = params
+    ? new URLSearchParams({
+        ...(params.page ? { page: params.page.toString() } : {}),
+        ...(params.limit ? { limit: params.limit.toString() } : {}),
+        ...(params.search ? { search: params.search } : {}),
+      }).toString()
+    : "";
+
+  const response = await fetch(
+    `${baseUrl}/${endpoint}${queryString ? `?${queryString}` : ""}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Network response was not ok: ${response.statusText}`);
+  }
+
+  return (await response.json()) as Response<T>;
+};
+
 export const post = async <T>(
   endpoint: string,
   data: T
@@ -18,22 +56,6 @@ export const post = async <T>(
       // Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Network response was not ok: ${response.statusText}`);
-  }
-
-  return (await response.json()) as Response<T>;
-};
-
-export const get = async <T>(endpoint: string): Promise<Response<T>> => {
-  const response = await fetch(`${baseUrl}/${endpoint}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      // Authorization: `Bearer ${token}`,
-    },
   });
 
   if (!response.ok) {

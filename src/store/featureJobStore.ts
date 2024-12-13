@@ -1,17 +1,29 @@
 import { defineStore } from "pinia";
-import { IFeatureJob, IFeatureJobPayload } from "../constants/common";
+import { IFeatureJob, IFeatureJobPayload, IMeta } from "../constants/common";
 import { get, post, del } from "../services/http";
 import { ref } from "vue";
 
 export const useFeatureJobStore = defineStore("featureJob", () => {
   const featureJobList = ref<IFeatureJob[]>([]);
   const featureJobDetail = ref<IFeatureJob>();
+  const featureMeta = ref<IMeta>();
+
+  const featureQuery = ref({
+    page: 1,
+    limit: 3,
+    search: "",
+  });
 
   const fetchFeatureJob = async () => {
     try {
-      const response = await get<IFeatureJob[]>("feature-jobs");
+      const response = await get<IFeatureJob[]>("feature-jobs", {
+        page: featureQuery.value.page,
+        limit: featureQuery.value.limit,
+        search: featureQuery.value.search,
+      });
       if (response.message === "success") {
         featureJobList.value = response.data as IFeatureJob[];
+        featureMeta.value = response.meta as unknown as IMeta;
       } else {
         console.error("failed to fetch feature job ", response.message);
       }
@@ -76,6 +88,8 @@ export const useFeatureJobStore = defineStore("featureJob", () => {
   return {
     featureJobList,
     featureJobDetail,
+    featureMeta,
+    featureQuery,
     fetchFeatureJob,
     fetchFeatureJobDetail,
     addFeatureJob,

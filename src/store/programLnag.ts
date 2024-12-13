@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
-import { IProgramLang } from "../constants/common";
+import { IProgramLang, IFeatureJob } from "../constants/common";
 import { ref } from "vue";
 import { get, post, put, del } from "../services/http";
 
 export const useProgramLangStore = defineStore("programLang", () => {
   const programLang = ref<IProgramLang[]>([]);
   const programLangDetail = ref<IProgramLang>();
+  const programLangFeatureJob = ref<IFeatureJob[]>([]);
 
   const fetchProgramLang = async () => {
     try {
@@ -32,6 +33,27 @@ export const useProgramLangStore = defineStore("programLang", () => {
       }
     } catch (error) {
       console.error("error to fetch program lang detail", error);
+    }
+  };
+
+  // find category detail by program lang id
+
+  const fetchProgramLangFeatureJob = async (id: string) => {
+    try {
+      const response = await get<IFeatureJob[]>(
+        `program-lang/${id}/feature-jobs`
+      );
+      if (response.message === "success") {
+        programLangFeatureJob.value = response.data as IFeatureJob[];
+        console.log("programLangFeatureJob", programLangFeatureJob.value);
+      } else {
+        console.error(
+          "failed to fetch program lang feature job",
+          response.message
+        );
+      }
+    } catch (error) {
+      console.error("error to fetch program lang feature job", error);
     }
   };
 
@@ -77,8 +99,10 @@ export const useProgramLangStore = defineStore("programLang", () => {
   return {
     programLang,
     programLangDetail,
+    programLangFeatureJob,
     fetchProgramLang,
     fetchProgramLangDetail,
+    fetchProgramLangFeatureJob,
     addProgramLang,
     updateProgramLang,
     deleteProgramLang,
